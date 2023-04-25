@@ -13,13 +13,15 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.status = 'draft'
+    @post.uuid = SecureRandom.uuid
     if @post.save
-      render json: @post.body.length, status: :created
+      render json: { created: @post.uuid }, status: :created
     else
       render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  #need to retain current values if omitted
   def update
     if params[:body].empty?
       render json: "Can't update without a body!"
@@ -35,18 +37,18 @@ class PostsController < ApplicationController
     if !@post
       render json: "Couldn't find post"
     else
-      @id = @post.id
+      @uuid = @post.uuid
       if @post.destroy
-        render json: "Deleted post #{@id}"
+        render json: "Deleted post #{@uuid}"
       else
-        render json: "Couldn't delete post #{@id}"
+        render json: "Couldn't delete post #{@uuid}"
       end
     end
   end
 
   private
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(params[:uuid])
   end
 
   def post_params
