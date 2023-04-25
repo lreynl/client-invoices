@@ -15,6 +15,17 @@ class UsersController < ApplicationController
     render json: @user, status: :created
   end
 
+  def update
+    if params[:name].empty?
+      render json: "Can't update without a name!"
+    elsif !@user
+      render json: "Couldn't find user"
+    else
+      @user.update(user_params)
+      render json: @user
+    end
+  end
+
   def destroy
     if !@user
       render json: "Couldn't find user"
