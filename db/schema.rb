@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2023_04_26_011137) do
 
   create_table "posts", force: :cascade do |t|
     t.text "body", null: false
-    t.string "status", null: false
+    t.integer "status", default: 0
     t.string "uuid", null: false
     t.string "file_url", null: false
     t.datetime "created_at", precision: 6, null: false

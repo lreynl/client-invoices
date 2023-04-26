@@ -12,24 +12,30 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.status = 'draft'
     @post.uuid = SecureRandom.uuid
+    @post.file_url = @post.file.blob.service_url
     if @post.save
-      render json: { created: @post.uuid }, status: :created
+      render json: { created: @post }, status: :created
     else
       render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   #need to retain current values if omitted
+  #should put this validation in the model
   def update
+    puts post_params
+    puts @post[:errors]
     if params[:body].empty?
       render json: "Can't update without a body!"
     elsif !@post
       render json: "Couldn't find post"
     else
-      @post.update(post_params)
-      render json: @post
+      if @post.update(post_params)
+        render json: @post
+      else
+        render json: @post.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -41,7 +47,7 @@ class PostsController < ApplicationController
       if @post.destroy
         render json: "Deleted post #{@uuid}"
       else
-        render json: "Couldn't delete post #{@uuid}"
+        render json: "Couldn't delete post #{@uuid}", status: :unprocessable_entity
       end
     end
   end
