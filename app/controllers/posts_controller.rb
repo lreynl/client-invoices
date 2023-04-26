@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(name: params[:user_name])
+    @user = User.find_by(params[:name])
     @post = @user.posts.new(post_params)
     # @post.status = 'draft'
     # puts @post.status
