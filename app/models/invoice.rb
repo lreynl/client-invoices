@@ -5,6 +5,7 @@ class Invoice < ApplicationRecord
   enum status: { created: 0, rejected: 1, approved: 2, purchased: 3, closed: 4 }
 
   validate :valid_status_transition, on: :update
+  monetize :invoice_amount_cents
 
   private
 

@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2023_04_26_011137) do
     t.text "body", null: false
     t.integer "status", default: 0
     t.string "invoice_number", null: false
+    t.integer "invoice_amount_cents", default: 0, null: false
     t.string "file_url", null: false
     t.integer "client_id", null: false
     t.datetime "created_at", precision: 6, null: false

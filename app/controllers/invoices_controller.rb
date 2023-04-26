@@ -18,6 +18,7 @@ class InvoicesController < ApplicationController
     @client = Client.find_by(params[:name])
     @invoice = @client.invoices.new(invoice_params)
     @invoice.invoice_number = SecureRandom.uuid
+    @invoice.invoice_amount = Money.new(params[:invoice_amount], "USD")
     @invoice.file_url = @invoice.file.blob.service_url
     if @invoice.save
       render json: { created: @invoice }, status: :created
