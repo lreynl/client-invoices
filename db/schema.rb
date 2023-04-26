@@ -38,8 +38,10 @@ ActiveRecord::Schema.define(version: 2023_04_26_011137) do
     t.integer "status", default: 0
     t.string "uuid", null: false
     t.string "file_url", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,4 +51,5 @@ ActiveRecord::Schema.define(version: 2023_04_26_011137) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "posts", "users"
 end

@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @user = User.all
-    render json: @user
+    @users = User.all
+    render json: @users
   end
 
   def show
@@ -41,8 +41,9 @@ class UsersController < ApplicationController
   end
 
   private
+
   def set_user
-    @user = User.find_by(name: params[:id])
+    @user = User.find_by(params[:user_name])
   end
 
   def user_params

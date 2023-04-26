@@ -11,7 +11,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @user = User.find_by(name: params[:user_name])
+    @post = @user.posts.new(post_params)
+    # @post.status = 'draft'
+    # puts @post.status
+    # @post.save
+    # puts @post[:errors]
+    # @post = Post.new(post_params)
     @post.uuid = SecureRandom.uuid
     @post.file_url = @post.file.blob.service_url
     if @post.save
@@ -26,7 +32,7 @@ class PostsController < ApplicationController
   def update
     puts post_params
     puts @post[:errors]
-    if params[:body].empty?
+    if params[:body] && params[:body].empty?
       render json: "Can't update without a body!"
     elsif !@post
       render json: "Couldn't find post"

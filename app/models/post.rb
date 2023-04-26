@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  # belongs_to :user
+  belongs_to :user
   enum status: { draft: 0, rejected: 1, review: 2, published: 3 }
 
   has_one_attached :file
@@ -10,10 +10,6 @@ class Post < ApplicationRecord
   private
 
   def valid_status_transition
-    # if status_changed? && !Post.statuses.key?(status_was.to_sym)
-    #   errors.add(:status, "#{status_was} is not a valid status")
-    # els
-    #puts ["* " + status_was, status, body]
     if status_was
       if status_changed? && status_was == 'rejected'
         errors.add(:status, "#{status_was} status cannot be changed")
