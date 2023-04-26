@@ -52,6 +52,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.permit(:body, :status)
+    params.permit(:body, :status, :file)
   end
 end
