@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2023_04_26_011137) do
     t.text "body", null: false
     t.string "status", null: false
     t.string "uuid", null: false
+    t.string "file_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
