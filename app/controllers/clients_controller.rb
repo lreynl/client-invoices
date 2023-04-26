@@ -44,7 +44,31 @@ class ClientsController < ApplicationController
     end
   end
 
+  def summary
+    @client = Client.find_by(params[:name])
+    today = Date.parse(Time.now.to_date.strftime('%F'))
+    apr = 0.10
+
+    fees_due = @client.invoices.map do |invoice| 
+      amount = invoice.invoice_amount_cents
+      if invoice.status == 'closed'
+        get_interest(amount, apr, (invoice.updated_at - invoice.created_at).to_i)
+      elsif invoice.status == 'purchased'
+        get_interest(amount, apr, (today - invoice.purchase_date).to_i)
+      else
+        0
+      end
+    end.sum
+
+    render json: { current_fees_due: Money.new(fees_due).format }
+  end
+
   private
+
+  def get_interest(p, r, t)
+    time = t.to_f / 365.0
+    p * Math.exp(r * time) - p
+  end
 
   def set_client
     @client = Client.find_by(params[:client_name])

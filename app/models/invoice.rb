@@ -6,6 +6,7 @@ class Invoice < ApplicationRecord
 
   validate :valid_status_transition, on: :update
   monetize :invoice_amount_cents
+  before_save :set_purchased_date, if: :purchased?
 
   private
 
@@ -17,5 +18,9 @@ class Invoice < ApplicationRecord
         errors.add(:status, "Current status '#{status_was}' cannot be changed back to '#{status}'")
       end
     end
+  end
+
+  def set_purchased_date
+    self.purchase_date ||= Time.current
   end
 end
