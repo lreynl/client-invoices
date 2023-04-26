@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  # resources :posts
-  # resources :users
-  resources :users, param: :name do
-    resources :posts
+  resources :clients, param: :name do
+    resources :invoices
   end
+
+  match '*path', to: 'application#render_404', via: :all
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

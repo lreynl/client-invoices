@@ -41,3 +41,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "google-cloud-storage", "~> 1.8", require: false
+
+gem 'money-rails'
