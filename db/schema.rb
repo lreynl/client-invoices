@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 2023_04_26_011137) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.text "body", null: false
     t.integer "status", default: 0
     t.string "invoice_number", null: false
     t.integer "invoice_amount_cents", default: 0, null: false

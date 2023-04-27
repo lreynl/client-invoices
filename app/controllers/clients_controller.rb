@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  @apr = 0.10
 
   def index
     @clients = Client.all
@@ -45,11 +46,10 @@ class ClientsController < ApplicationController
   end
 
   def summary
-    @client = Client.find_by(params[:name])
+    client = Client.find_by(params[:name])
     today = Date.parse(Time.now.to_date.strftime('%F'))
-    apr = 0.10
-
-    fees_due = @client.invoices.map do |invoice| 
+    
+    fees_due = client.invoices.map do |invoice| 
       amount = invoice.invoice_amount_cents
       if invoice.status == 'closed'
         get_interest(amount, apr, (invoice.updated_at - invoice.created_at).to_i)

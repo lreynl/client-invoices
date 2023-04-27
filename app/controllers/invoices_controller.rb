@@ -19,7 +19,6 @@ class InvoicesController < ApplicationController
     @invoice = @client.invoices.new(invoice_params)
     @invoice.invoice_number = SecureRandom.uuid
     @invoice.invoice_amount = Money.new(params[:invoice_amount], "USD")
-    @invoice.due_date = Date.parse(params[:due_date])
     @invoice.file_url = @invoice.file.blob.service_url
     if @invoice.save
       render json: { created: @invoice }, status: :created
@@ -30,9 +29,7 @@ class InvoicesController < ApplicationController
 
   #should put this validation in the model
   def update
-    if params[:body] && params[:body].empty?
-      render json: "Can't update without a body!"
-    elsif !@invoice
+    if !@invoice
       render json: "Couldn't find invoice"
     else
       if @invoice.update(invoice_params)

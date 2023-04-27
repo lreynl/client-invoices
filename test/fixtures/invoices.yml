@@ -1,11 +1,42 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: MyText
-  status: MyString
-  invoice: one
+  status: created
+  invoice_amount_cents: 100000
+  invoice_number: a1666dc3-81e3-4232-9546-609ca2fd6c5d
+  purchase_date: 2022-01-01
+  file_url: https://example.com/invoice-scan.pdf
+  client: one
 
 two:
-  body: MyText
-  status: MyString
-  invoice: two
+  status: closed
+  invoice_amount_cents: 100000
+  invoice_number: 6d45458e-5138-4aa8-b8f2-1fc2f7d28791
+  purchase_date: 2022-01-01
+  updated_at: 2023-01-01
+  file_url: https://example.com/invoice-scan.pdf
+  client: two
+
+three:
+  status: rejected
+  invoice_amount_cents: 90000
+  invoice_number: 10c6e64d-99e7-48e4-9f0e-12546ba97a8d
+  purchase_date: 2022-01-01
+  file_url: https://example.com/invoice-scan.pdf
+  client: one
+
+four:
+  status: closed
+  invoice_amount_cents: 90000
+  invoice_number: 81d0872f-c9a8-489f-a825-bd63bfe7cf00
+  purchase_date: 2022-01-01
+  file_url: https://example.com/invoice-scan.pdf
+  client: one
+
+five:
+  status: purchased
+  invoice_amount_cents: 120000
+  invoice_number: 14e21c8f-a9f1-43a9-8abf-bfbf8810425a
+  purchase_date: 2022-01-01
+  file_url: https://example.com/invoice-scan.pdf
+  client: one
