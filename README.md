@@ -6,11 +6,11 @@ This is a Rails API which let you create a Client which has Invoices. It returns
 This project was built with the following versions:
 * Rails 6.0.6.1
 * Ruby 2.7.0
-* 3.24.0
+* SQLite3 3.24.0
 
 ## How to run
 * Clone the repo to your local machine
-* Save the provided Google Cloud credentials file in `/config/secrets`
+* Save the provided Google Cloud credentials file in `client_invoices/config/secrets`
 * `cd` into `client_invoices`
 * run `rails s` to start the server
 * The server will run on `localhost:3000`
@@ -42,7 +42,7 @@ Because of time constraints and strictly limiting the scope to the design doc, t
 
 The tests are minimal but cover the status transitions and some other important functions. An improvement would be to add some end-to-end tests that would include things like the file upload.
 
-Something else that wasn't included is checks on the file size and type. Right now those aren't limited and that would need to be built for anything more than a demonstration.
+Something else that wasn't included is checks on the file size and type. Right now those aren't limited and that would need to be built for anything more than a demonstration. It might make more sense to build this in the frontend.
 
 For the Postman `POST` requests a file will need to be supplied.
 
