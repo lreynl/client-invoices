@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get 'summary', on: :member
   end
 
+  root to: 'home#render_401'
+
   match '*path', to: 'application#render_404', via: :all
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

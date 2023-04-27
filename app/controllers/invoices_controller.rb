@@ -18,7 +18,7 @@ class InvoicesController < ApplicationController
     @client = Client.find_by(params[:name])
     @invoice = @client.invoices.new(invoice_params)
     @invoice.invoice_number = SecureRandom.uuid
-    @invoice.invoice_amount = Money.new(params[:invoice_amount], "USD")
+    @invoice.invoice_amount_cents = params[:invoice_amount].to_f * 100
     @invoice.file_url = @invoice.file.blob.service_url
     if @invoice.save
       render json: { created: @invoice }, status: :created
@@ -27,7 +27,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  #should put this validation in the model
   def update
     if !@invoice
       render json: "Couldn't find invoice"
@@ -54,6 +53,7 @@ class InvoicesController < ApplicationController
   end
 
   private
+
   def set_invoice
     @invoice = Invoice.find_by(params[:invoice_number])
   end

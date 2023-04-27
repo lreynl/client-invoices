@@ -1,6 +1,5 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
-  @apr = 0.10
 
   def index
     @clients = Client.all
@@ -46,6 +45,7 @@ class ClientsController < ApplicationController
   end
 
   def summary
+    apr = 0.10
     client = Client.find_by(params[:name])
     today = Date.parse(Time.now.to_date.strftime('%F'))
     
